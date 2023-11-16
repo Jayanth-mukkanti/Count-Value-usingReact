@@ -1,39 +1,46 @@
-import React, { useState } from 'react';
+
+import React from 'react'
 import "./App.css"
-import {Header} from './Header';
-import {DestinationList} from './DestinationList'
-import DestinationCard from './DestinationCard';  
+import { useState } from 'react'
 
 function App() {
 
-  const [DestinationCards, updateDestinationCard] = useState([
-    {imgUrl: 'https://vrindavanmathura.com/wp-content/uploads/elementor/thumbs/prem-mandir-temple-vrindavan-mathura-india-prem-mandir-temple-is-maintained-by-jagadguru-kripalu-parishat-international-non-profit-educational-spiritual-charitable-trust-1-pw397u7i1zoeif2pjbq88xejb64wo8fhoeuipdzpfg.jpg',
-     imgName : "Vrindavan",
-     id: 1},
-     {imgUrl: 'https://www.tourmyindia.com/states/kerala/image/kerala-tourism.webp',
-     imgName : "Kerala",
-     id: 2},
-     {imgUrl: 'https://dynamic-media-cdn.tripadvisor.com/media/photo-o/15/33/fc/f0/goa.jpg?w=700&h=500&s=1',
-     imgName : "Goa",
-     id: 3},
-     {imgUrl: 'https://img.veenaworld.com/wp-content/uploads/2023/03/10-Things-That-Make-Pondicherry-An-Unforgetful-Travel-Destination.jpg',
-     imgName : "Pondicherry",
-     id: 4},
-     {imgUrl: 'https://miro.medium.com/v2/resize:fit:780/1*8Pt72wtBOeEeOEUnyaZfTw.jpeg',
-     imgName : "leh-ladakh",
-     id: 5},
-    ])
+  const [timer, setTimer] = useState(0);
+  const [intervalId, setIntervalId] = useState(null);
+
+  const startTimer = () => {
+    if (!intervalId) {
+      const id = setInterval(() => {
+        setTimer((prevTimer) => prevTimer + 1);
+      }, 1000);
+      setIntervalId(id);
+    }
+  }
+
+  const stopTimer = () => {
+    clearInterval(intervalId);
+    setIntervalId(null);
+  };
+
+  const resetTimer = () => {
+    clearInterval(intervalId);
+    setIntervalId(null);
+    setTimer(0);
+  };
 
   return (
     <>
-    <Header />
-    <DestinationList />
-    { DestinationCards.map( (item,i) => {
-      console.log(item)
-      return <DestinationCard URL = { item.imgUrl } Name = { item.imgName } id = {item.id}/>
-
-    })}
+      <div id='header'>
+        <h1> Increment Number Set </h1>
+        <h1> Timer: {timer} </h1>
+        <div id='b1'>
+          <button onClick={startTimer}> Start </button> 
+          <button onClick={stopTimer}> Stop </button> 
+          <button onClick={resetTimer}> Reset </button>
+        </div>
+      </div>
     </>
-  );
+  )
 }
-export default App;
+
+export default App
