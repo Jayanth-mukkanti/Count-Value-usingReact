@@ -34,7 +34,7 @@ function App() {
         <h1> Increment Number Set </h1>
         <h1> Timer: {timer} </h1>
         <div id='b1'>
-          <button onClick={startTimer}> Start </button> 
+          <button onClick={startTimer} disabled={!!intervalId}> Start </button> 
           <button onClick={stopTimer}> Stop </button> 
           <button onClick={resetTimer}> Reset </button>
         </div>
